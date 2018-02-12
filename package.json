@@ -1,0 +1,27 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taxilng/websocket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taxilng/websocket/issues"
+  },
+  "homepage": "https://github.com/taxilng/websocket#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "ws": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
+  }
+}

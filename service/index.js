@@ -22,8 +22,10 @@ wss.broadcast = function broadcast(data) {
   };
 
 wss.on('connection', function connection(ws, req) {
+    const ip = req.connection.remoteAddress;
     const location = url.parse(req.url, true);
-
+    let ipStr = ip.slice(7)
+        console.log(ipStr);
     ws.on('close', function close(code, reason) {
         console.log('disconnected');
     });
@@ -31,11 +33,16 @@ wss.on('connection', function connection(ws, req) {
         console.log('err');
     });
     ws.on('message', function incoming(message) {
+       
         // console.log('received: %s', message);
         // ws.send(message);
         wss.clients.forEach(function each(client) {
             if (client.readyState === WebSocket.OPEN) {
-              client.send(message);
+                sendData = {
+                    ip: ipStr,
+                    msg: message
+                }
+              client.send(JSON.stringify(sendData));
             }
           });
     });
@@ -44,10 +51,7 @@ wss.on('connection', function connection(ws, req) {
         ws.send('hello')
     });
    
-    try { ws.send('客户端，你好'); }
-    catch (e) { 
-        console.log(e);
-     }
+ 
      
   
 

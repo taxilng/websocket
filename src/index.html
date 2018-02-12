@@ -12,7 +12,8 @@
         }
         ws.onmessage = function (evt) {
             console.log(evt);
-            var str = '<div>' + evt.data + '</div>'
+            var data = JSON.parse(evt.data)
+            var str = `<em style="color: #ccc;">${data.ip}</em><div>${data.msg}</div>`
             document.querySelector('.showMsg').insertAdjacentHTML('beforeend',str)
             // ws.close();
         };

@@ -15,17 +15,17 @@ const wss = new WebSocket.Server({ server });
 
 wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(data);
-      }
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(data);
+        }
     });
-  };
+};
 
 wss.on('connection', function connection(ws, req) {
     const ip = req.connection.remoteAddress;
     const location = url.parse(req.url, true);
     let ipStr = ip.slice(7)
-        console.log(ipStr);
+    console.log(ipStr);
     ws.on('close', function close(code, reason) {
         console.log('disconnected');
     });
@@ -33,27 +33,28 @@ wss.on('connection', function connection(ws, req) {
         console.log('err');
     });
     ws.on('message', function incoming(message) {
-       
+        var time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
         // console.log('received: %s', message);
         // ws.send(message);
         wss.clients.forEach(function each(client) {
             if (client.readyState === WebSocket.OPEN) {
                 sendData = {
                     ip: ipStr,
+                    time: time,
                     msg: message
                 }
-              client.send(JSON.stringify(sendData));
+                client.send(JSON.stringify(sendData));
             }
-          });
+        });
     });
-    
+
     ws.on('open', () => {
         ws.send('hello')
     });
-   
- 
-     
-  
+
+
+
+
 
 });
 

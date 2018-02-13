@@ -1,234 +1,221 @@
     @charset "utf-8";
+    /* margin and padding */
 
-/* margin and padding */
-
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-p,
-blockquote,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-pre,
-img,
-form,
-applet,
-fieldset,
-legend,
-button,
-input,
-textarea,
-th,
-table,
-tr,
-td {
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
-
-/* bady */
-
-body {
-    font-family: "微软雅黑";
-    font-size: 12px;
-    color: #333;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background: #2b3d51;
-}
-
-body,
-div,
-fieldset,
-form,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-html,
-p {
-    -webkit-text-size-adjust: none
-}
-
-input::-ms-clear {
-    display: none;
-}
-
-
-/*清楚文本框X*/
-
-html {
-    height: 100%;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-input,
-select,
-textarea {
-    outline: none;
-    cursor: pointer;
-}
-
-
-/* img */
-
-img {
-    padding: 0;
-    margin: 0;
-    vertical-align: top;
-    border: none
-}
-
-i {
-    font-style: normal;
-}
-
-
-/* float */
-
-.fl {
-    float: left!important;
-}
-
-.fr {
-    float: right!important;
-}
-
-.auto {
-    margin: 0 auto;
-}
-
-.block {
-    display: block!important;
-}
-
-.none {
-    display: none;
-}
-
-.red {
-    color: #ea4848!important;
-}
-
-.blue {
-    color: #0034fa!important;
-}
-
-.mins {
-    height: 0px!important;
-}
-
-
-/* div */
-
-li,
-ul {
-    list-style: none;
-    outside: none;
-}
-
-.clear {
-    clear: both;
-    height: 0;
-    width: 100%;
-}
-
-a,
-b,
-i,
-span,
-input,
-select {
-    -webkit-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    font-family: "微软雅黑";
-}
-
-
-/* font */
-
-a {
-    color: #333;
-    text-decoration: none;
-    -webkit-transition: all 0.5s;
-}
-
-a:hover,
-a:active,
-a:focus {
-    text-decoration: none;
-}
-
-.win-bg {
-    width: 600px;
-    height: 218px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin: -109px 0 0 -300px;
-}
-
-.qq-exe {
-    width: 60px;
-    height: 90px;
-    float: left;
-    position: relative;
-    left: 4.5%;
-    top: 22%;
-}
-
-.qq-exe img {
-    width: 50px;
-    height: 50px;
-    float: left;
-    cursor: pointer;
-}
-
-.qq-exe input {
-    float: left;
-    text-align: left;
-    height: 16px;
-    color: #fff;
-    width: 60px;
-    margin: 5px 0;
-    background: none;
-}
-
-
-/*弹性布局*/
-@media (min-width: 768px) {
-    .w {
-        height: 98%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr,
+    p,
+    blockquote,
+    dl,
+    dt,
+    dd,
+    ul,
+    ol,
+    li,
+    pre,
+    img,
+    form,
+    applet,
+    fieldset,
+    legend,
+    button,
+    input,
+    textarea,
+    th,
+    table,
+    tr,
+    td {
+        margin: 0;
+        padding: 0;
+        border: none;
     }
-}
+    /* bady */
 
-@media (max-width: 768px) {
-    .w {
-        height: 98%;
-        display: flex;
-        justify-content: center;
+    body {
+        font-family: "微软雅黑";
+        font-size: 12px;
+        color: #333;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: #2b3d51;
     }
-}
+
+    body,
+    div,
+    fieldset,
+    form,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    html,
+    p {
+        -webkit-text-size-adjust: none
+    }
+
+    input::-ms-clear {
+        display: none;
+    }
+    /*清楚文本框X*/
+
+    html {
+        height: 100%;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    input,
+    select,
+    textarea {
+        outline: none;
+        cursor: pointer;
+    }
+    /* img */
+
+    img {
+        padding: 0;
+        margin: 0;
+        vertical-align: top;
+        border: none
+    }
+
+    i {
+        font-style: normal;
+    }
+    /* float */
+
+    .fl {
+        float: left!important;
+    }
+
+    .fr {
+        float: right!important;
+    }
+
+    .auto {
+        margin: 0 auto;
+    }
+
+    .block {
+        display: block!important;
+    }
+
+    .none {
+        display: none;
+    }
+
+    .red {
+        color: #ea4848!important;
+    }
+
+    .blue {
+        color: #0034fa!important;
+    }
+
+    .mins {
+        height: 0px!important;
+    }
+    /* div */
+
+    li,
+    ul {
+        list-style: none;
+        outside: none;
+    }
+
+    .clear {
+        clear: both;
+        height: 0;
+        width: 100%;
+    }
+
+    a,
+    b,
+    i,
+    span,
+    input,
+    select {
+        -webkit-transition: all 0.5s;
+        -ms-transition: all 0.5s;
+        font-family: "微软雅黑";
+    }
+    /* font */
+
+    a {
+        color: #333;
+        text-decoration: none;
+        -webkit-transition: all 0.5s;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        text-decoration: none;
+    }
+
+    .win-bg {
+        width: 600px;
+        height: 218px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin: -109px 0 0 -300px;
+    }
+
+    .qq-exe {
+        width: 60px;
+        height: 90px;
+        float: left;
+        position: relative;
+        left: 4.5%;
+        top: 22%;
+    }
+
+    .qq-exe img {
+        width: 50px;
+        height: 50px;
+        float: left;
+        cursor: pointer;
+    }
+
+    .qq-exe input {
+        float: left;
+        text-align: left;
+        height: 16px;
+        color: #fff;
+        width: 60px;
+        margin: 5px 0;
+        background: none;
+    }
+    /*弹性布局*/
+
+    @media (min-width: 768px) {
+        .w {
+            height: 98%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .w {
+            height: 98%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
     .qq-chat {
         width: 440px;
         height: 516px;
@@ -240,6 +227,7 @@ a:focus {
         -webkit-transition: all 0.5s;
         position: relative
     }
+
     .qq-chat-win {
         position: absolute;
         width: 120px;
@@ -247,6 +235,7 @@ a:focus {
         right: 0px;
         top: 0px;
     }
+
     .qq-chat-win li {
         width: 30px;
         height: 27px;
@@ -255,37 +244,46 @@ a:focus {
         background-image: url(../images/chat/win.png);
         -webkit-transition: all 0.5s;
     }
+
     .qq-chat-win li:hover {
         background-image: url(../images/chat/wins.png);
         background-color: #3a95de;
     }
+
     .qq-chat-win li:nth-child(1) {
         background-position: left center;
     }
+
     .qq-chat-win li:nth-child(2) {
         background-position: -30px center;
     }
+
     .qq-chat-win li:nth-child(3) {
         background-position: -60px center;
     }
+
     .qq-chat-win li:nth-child(4) {
         background-position: -90px center;
     }
+
     .qq-chat-win li:nth-child(4):hover {
         background-color: #ea4848!important;
     }
+
     .qq-chat-top {
         height: 83px;
         width: 100%;
         float: left;
         border-bottom: 1px solid rgba(180, 180, 180, .5);
     }
+
     .qq-chat-tops {
         width: 100%;
         float: left;
         height: 42px;
         margin: 4px 0;
     }
+
     .qq-chat-t-head {
         width: 40px;
         height: 40px;
@@ -296,10 +294,12 @@ a:focus {
         overflow: hidden;
         box-shadow: 0 0 3px #999;
     }
+
     .qq-chat-t-head img {
         width: 100%;
         height: auto;
     }
+
     .qq-chat-t-name {
         width: 260px;
         height: 24px;
@@ -307,6 +307,7 @@ a:focus {
         font-size: 18px;
         float: left;
     }
+
     .qq-chat-t-shuo {
         width: 260px;
         height: 18px;
@@ -315,28 +316,34 @@ a:focus {
         text-shadow: 0 0 2px #fff;
         float: left;
     }
+
     .qq-chat-menu {
         width: 100%;
         float: left;
         height: 32px;
     }
+
     .qq-chat-menu li {
         float: left;
         height: 26px;
         margin: 2px 5px;
     }
+
     .qq-chat-menu li:hover {
         box-shadow: 0 0 3px #666;
     }
+
     .qq-chat-menu span {
         width: 26px;
         height: 26px;
         float: left;
     }
+
     .qq-chat-menu img {
         width: 26px;
         height: 26px;
     }
+
     .qq-chat-menu i {
         width: 8px;
         height: 26px;
@@ -344,12 +351,14 @@ a:focus {
         float: left;
         background: url(../images/chat/icon-00.png) left center no-repeat;
     }
+
     .qq-chat-bot {
         height: 426px;
         width: 100%;
         float: left;
         background: rgba(255, 255, 255, .2);
     }
+
     .qq-chat-txt {
         float: left;
         width: 100%;
@@ -360,43 +369,51 @@ a:focus {
         scrollbar-base-color: #fbeede;
         scrollbar-track-color: #fbeede;
     }
+
     .qq-chat-txt ul {
         padding: 10px 0;
         float: left;
         width: 100%;
     }
+
     .qq-chat-txt li {
         margin: 3px 0;
         float: left;
         width: 100%;
     }
+
     .qq-chat-my span,
     .qq-chat-you span {
         float: left;
         margin: 0 10px;
     }
+
     .qq-chat-ner {
         color: #666;
         width: 400px;
         margin: 0 20px;
     }
+
     .qq-chat-ner img {
         max-width: 100%;
         max-heiht: 260px;
         width: auto;
         height: auto;
     }
+
     .qq-chat-text {
         float: left;
         width: 100%;
         height: 165px;
         border-top: 1px solid rgba(180, 180, 180, .5);
     }
+
     .qq-chat-text ul {
         height: 28px;
         float: left;
         width: 100%;
     }
+
     .qq-chat-text li {
         float: left;
         margin: 3px 0 3px 5px;
@@ -405,20 +422,24 @@ a:focus {
         -webkit-transition: all 0.5s;
         border-radius: 2px;
     }
+
     .qq-chat-text li:hover {
         border: 1px solid #ccc;
     }
+
     .qq-chat-text li span {
         width: 20px;
         height: 20px;
         float: left;
     }
+
     .qq-chat-text li p {
         float: left;
         padding: 0 3px;
         line-height: 20px;
         cursor: context-menu;
     }
+
     .qq-chat-text li i {
         background: url(../images/chat/icon-00.png) no-repeat center center;
         width: 8px;
@@ -426,6 +447,7 @@ a:focus {
         float: left;
         margin: 0 2px;
     }
+
     .qq-chat-text textarea {
         width: 420px;
         height: 69px;
@@ -439,6 +461,7 @@ a:focus {
         resize: none;
         font-size: 14px;
     }
+
     .qq-chat-but span {
         padding: 0 14px;
         line-height: 24px;
@@ -450,10 +473,12 @@ a:focus {
         color: #fff;
         cursor: pointer;
     }
+
     .qq-chat-but span:nth-child(1) {
         padding-right: 34px;
         background: #ea4848 url(../images/chat/fa.png) 60px center no-repeat;
     }
+
     .content {
         height: 1090px;
         position: relative;
@@ -461,9 +486,11 @@ a:focus {
         padding-left: 15px;
         /*background-image: linear-gradient(135deg, skyblue, deepskyblue);*/
     }
+
     #userName {
         background: #EEECE1;
     }
+
     #emojiWrapper {
         display: none;
         width: 500px;
@@ -472,18 +499,22 @@ a:focus {
         background-color: #aaa;
         box-shadow: 0 0 10px #555;
     }
+
     #emojiWrapper img {
         margin: 2px;
         padding: 2px;
         width: 25px;
         height: 25px;
     }
+
     #emojiWrapper img:hover {
         background-color: blue;
     }
+
     .emoji {
         display: inline;
     }
+
     #sendImage {
         position: absolute;
         width: 30px;
@@ -493,6 +524,7 @@ a:focus {
         overflow: hidden;
     }
     /* 输入用户昵称 */
+
     #loginWrapper {
         position: fixed;
         top: 0;
@@ -508,11 +540,19 @@ a:focus {
         justify-content: center;
         flex-direction: column;
     }
+
     #loginWrapper>p {
         padding-bottom: 10px;
         font-size: 16px;
     }
+
+    #historyMsg {
+        height: 265px;
+        overflow: auto;
+        padding: 2px;
+    }
     /* 聊天图片 */
+
     #historyMsg img {
         max-width: 99%;
     }

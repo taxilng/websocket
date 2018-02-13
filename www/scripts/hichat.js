@@ -44,6 +44,12 @@ HiChat.prototype = {
         this.socket.on('newMsg', function (user, msg, color) {
             that._displayNewMsg(user, msg, color);
         });
+        this.socket.on('historyMsg', function (dataArr) {
+            for (let i = 0; i < dataArr.length; i++) {
+                that._displayNewMsg(dataArr[i].nickname, dataArr[i].msg, dataArr[i].color);
+            }
+          
+        });
         this.socket.on('newImg', function (user, img, color) {
             that._displayImage(user, img, color);
         });
@@ -78,6 +84,11 @@ HiChat.prototype = {
                 that._displayNewMsg('me', msg, color);
                 return;
             };
+        }, false);
+        //获取历史记录
+        document.getElementById('getHistoryMsg').addEventListener('click', function () {
+                that.socket.emit('gitHistoryMsg');
+                return;
         }, false);
         document.getElementById('messageInput').addEventListener('keyup', function (e) {
             var messageInput = document.getElementById('messageInput'),

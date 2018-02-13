@@ -30,11 +30,12 @@ io.sockets.on('connection', (socket) => {
     })
     //发送消息
     socket.on('postMsg', (msg, color) => {
-        socket.broadcast.emit('newMsg', socket.nickname, msg, color)
+        socket.broadcast.emit('newMsg', socket.nickname, msg, color, getTimeNow())
         let getMsg = {
             nickname: socket.nickname,
             msg: msg,
-            color: color
+            color: color,
+            time: getTimeNow()
         }
         optfile.readFile('./views/one.txt', recall)
         function recall(data) {
@@ -47,13 +48,7 @@ io.sockets.on('connection', (socket) => {
     })
     //历史数据
     socket.on('gitHistoryMsg', () => {
-        optfile.readFile('./views/one.txt', recall)
-        function recall(data) {
-            let dataArr = JSON.parse(data || "[]")
-            dataArr = dataArr.slice(0,10)
-            socket.emit('historyMsg', dataArr)
-        }
-      
+        loadHistoryMsg();
     })
     //获取图片
     socket.on('img', (imgData, color) => {
@@ -66,6 +61,10 @@ io.sockets.on('connection', (socket) => {
             dataArr = dataArr.slice(0,10)
             socket.emit('historyMsg', dataArr)
         }
+    }
+    // 获取当前时间
+    function getTimeNow(){
+        return new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
     }
     loadHistoryMsg();
 })

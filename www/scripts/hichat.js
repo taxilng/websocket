@@ -31,17 +31,17 @@ HiChat.prototype = {
             }
         });
         this.socket.on('system', function (nickName, userCount, type) {
-            var msg = nickName + (type == 'login' ? ' joined' : ' left');
-            that._displayNewMsg('system ', msg, 'red');
+            var msg = nickName + (type == 'login' ? ' 加入聊天室' : ' 离开聊天室');
+            that._displayNewMsg('other', '系统消息', msg, 'red');
             document.getElementById('status').textContent ='共 ' + userCount + ' 位在线';
         });
-        this.socket.on('newMsg', function (user, msg, color) {
-            that._displayNewMsg(user, msg, color);
+        this.socket.on('newMsg', function (user, msg, color, time) {
+            that._displayNewMsg('other', user, msg, color, time);
         });
         this.socket.on('historyMsg', function (dataArr) {
             var reverseArr = dataArr.reverse();
             for (let i = 0; i < reverseArr.length; i++) {
-                that._displayNewMsg(reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color);
+                that._displayNewMsg('other', reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color, reverseArr[i].time);
             }
 
         });
@@ -79,7 +79,7 @@ HiChat.prototype = {
             messageInput.focus();
             if (msg.trim().length != 0) {
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg(nickname(), msg, color);
+                that._displayNewMsg('me', nickname(), msg, color);
                 return;
             };
         }, false);
@@ -95,7 +95,7 @@ HiChat.prototype = {
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg(nickname(), msg, color);
+                that._displayNewMsg('me', nickname(), msg, color);
             };
         }, false);
         // document.getElementById('clearBtn').addEventListener('click', function() {
@@ -108,7 +108,7 @@ HiChat.prototype = {
                     color = document.getElementById('colorStyle').value;
                 console.log(file.size / 1024);
                 if (!reader) {
-                    that._displayNewMsg('system', '您的游览器不支持', 'red');
+                    that._displayNewMsg('other', '系统消息', '您的游览器不支持', 'red');
                     this.value = '';
                     return;
                 };
@@ -176,20 +176,23 @@ HiChat.prototype = {
         };
         emojiContainer.appendChild(docFragment);
     },
-    _displayNewMsg: function (user, msg, color) {
+    _displayNewMsg: function (who, user, msg, color, time) {
         var container = document.getElementById('historyMsg'),
-            msgToDisplay = document.createElement('p'),
-            date = new Date().toTimeString().substr(0, 8),
+            msgToDisplay = document.createElement('div'),
+            date = time || new Date().toTimeString().substr(0, 8),
             //determine whether the msg contains emoji
             msg = this._showEmoji(msg);
         msgToDisplay.style.color = color || '#000';
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span>' + msg;
+        if(who === 'me'){
+            msgToDisplay.style.textAlign = 'right';
+        }
+        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span><br>&nbsp;&nbsp;&nbsp;&nbsp;' + msg;
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
     },
     _displayImage: function (user, imgData, color) {
         var container = document.getElementById('historyMsg'),
-            msgToDisplay = document.createElement('p'),
+            msgToDisplay = document.createElement('div'),
             date = new Date().toTimeString().substr(0, 8);
         msgToDisplay.style.color = color || '#000';
         msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';

@@ -117,6 +117,7 @@ a:hover,a:active,a:focus{text-decoration:none;}
     overflow: hidden;
 }
 
+/* 输入用户昵称 */
 #loginWrapper {
     position: fixed;
     top: 0;
@@ -127,8 +128,10 @@ a:hover,a:active,a:focus{text-decoration:none;}
     text-align: center;
     color: #fff;
     display: block;
-    padding-top: 200px;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 #loginWrapper > p {
     padding-bottom: 10px;

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QQ聊天</title>
+    <link rel="stylesheet" href="./styles/bootstrap.css">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <div class="qq-exe">
+        <img src="images/chat/QQ-ICON.png">
+        <input type="text" value="腾讯QQ" placeholder="腾讯QQ">
+    </div>
+    <div class="w">
+            <div id="loginWrapper">
+                    <p id="info">正在加入聊天室...</p>
+                    <div id="nickWrapper" class="form-inline">
+                        <input type="text" class="form-control" placeholder="请输入昵称" id="nicknameInput" />
+                        <button type="button" class="btn btn-primary" id="loginBtn">确认</button>
+                    </div>
+                </div>
+        <div class="qq-chat">
+            <div class="qq-chat-win">
+                <ul>
+                    <li class="she"></li>
+                    <li class="min"></li>
+                    <li class="max"></li>
+                    <li class="close"></li>
+                </ul>
+            </div>
+            <div class="qq-chat-top">
+                <div class="qq-chat-tops">
+                    <div class="qq-chat-t-head">
+                        <img src="images/head/08.jpg">
+                    </div>
+                    <div class="qq-chat-t-name"></div>
+                    <div class="qq-chat-t-shuo">站在别人的雨季，淋湿自己空弹一出戏.....</div>
+                </div>
+                <div class="qq-chat-menu">
+                    <ul>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-01.png">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-02.png">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-03.png">
+                            </span>
+                            <i></i>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-04.png">
+                            </span>
+                            <i></i>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-05.png">
+                            </span>
+                            <i></i>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-06.png">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/icon-07.png">
+                            </span>
+                            <i></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="qq-chat-bot">
+                <div class="qq-chat-txt">
+                    <div class="banner">
+                        <span id="status"></span>
+                    </div>
+                    <div id="historyMsg">
+                    </div>
+
+                </div>
+                <div class="qq-chat-text">
+                    <ul>
+                        <li>
+                            <span>
+                                <img id="changeColor" src="images/chat/menu-01.png">
+                                <input id="colorStyle" type="color" placeholder="#000" title="font color" style="display:none">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img id="emoji" src="images/chat/menu-02.png">
+                            </span>
+                        </li>
+                        <li style="position: relative;">
+                            <span>
+                                <img src="images/chat/menu-07.png">
+                                <input id="sendImage" type="file" value="image"/>
+                            </span>
+                            <i></i>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/menu-03.png">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/menu-04.png">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/menu-05.png">
+                            </span>
+                            <i></i>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/menu-06.png">
+                            </span>
+                        </li>
+
+                        <li>
+                            <span>
+                                <img src="images/chat/menu-08.png">
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="images/chat/menu-09.png">
+                            </span>
+                            <i></i>
+                        </li>
+                        <li class="fr" style="margin-right:5px;">
+                            <span>
+                                <img src="images/chat/menu-10.png">
+                            </span>
+                            <p>消息记录</p>
+                            <i></i>
+                        </li>
+                    </ul>
+                    <br/>
+                    <br/>
+                    <textarea autofocus name="talkContent" id="messageInput" placeholder="回车发送内容"></textarea>
+                    <div class="qq-chat-but">
+                        <span id="sendBtn" class="fasong">发送(S)</span>
+                        <span class="close-chat">关闭(C)</span>
+                    </div>
+                    <div id="emojiWrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="scripts/hichat.js"></script>
+
+</html>

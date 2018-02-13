@@ -2,9 +2,10 @@
   "name": "websocket",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "service.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set PORT=8888&&node service.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,7 @@
   "homepage": "https://github.com/taxilng/websocket#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "ws": "^4.0.0"
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.14.12"

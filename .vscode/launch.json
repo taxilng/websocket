@@ -8,8 +8,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "启动程序",
-            "program": "${workspaceFolder}/service/index.js"
+            "name": "外面server",
+            "program": "${workspaceFolder}/service.js"
         }
     ]
 }

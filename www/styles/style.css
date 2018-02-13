@@ -554,5 +554,5 @@
     /* 聊天图片 */
 
     #historyMsg img {
-        max-width: 99%;
+        max-width: 50%;
     }

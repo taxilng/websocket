@@ -34,6 +34,7 @@
         padding: 0;
         border: none;
     }
+
     /* bady */
 
     body {
@@ -64,6 +65,7 @@
     input::-ms-clear {
         display: none;
     }
+
     /*清楚文本框X*/
 
     html {
@@ -80,6 +82,7 @@
         outline: none;
         cursor: pointer;
     }
+
     /* img */
 
     img {
@@ -92,14 +95,15 @@
     i {
         font-style: normal;
     }
+
     /* float */
 
     .fl {
-        float: left!important;
+        float: left !important;
     }
 
     .fr {
-        float: right!important;
+        float: right !important;
     }
 
     .auto {
@@ -107,7 +111,7 @@
     }
 
     .block {
-        display: block!important;
+        display: block !important;
     }
 
     .none {
@@ -115,16 +119,17 @@
     }
 
     .red {
-        color: #ea4848!important;
+        color: #ea4848 !important;
     }
 
     .blue {
-        color: #0034fa!important;
+        color: #0034fa !important;
     }
 
     .mins {
-        height: 0px!important;
+        height: 0px !important;
     }
+
     /* div */
 
     li,
@@ -149,6 +154,7 @@
         -ms-transition: all 0.5s;
         font-family: "微软雅黑";
     }
+
     /* font */
 
     a {
@@ -197,6 +203,7 @@
         margin: 5px 0;
         background: none;
     }
+
     /*弹性布局*/
 
     @media (min-width: 768px) {
@@ -267,7 +274,7 @@
     }
 
     .qq-chat-win li:nth-child(4):hover {
-        background-color: #ea4848!important;
+        background-color: #ea4848 !important;
     }
 
     .qq-chat-top {
@@ -364,7 +371,6 @@
         width: 100%;
         color: #008040;
         height: 290px;
-        overflow-y: scroll;
         line-height: 20px;
         scrollbar-base-color: #fbeede;
         scrollbar-track-color: #fbeede;
@@ -523,6 +529,7 @@
         opacity: 0;
         overflow: hidden;
     }
+
     /* 输入用户昵称 */
 
     #loginWrapper {
@@ -551,6 +558,7 @@
         overflow: auto;
         padding: 2px;
     }
+
     /* 聊天图片 */
 
     #historyMsg img {

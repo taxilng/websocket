@@ -22,7 +22,7 @@ HiChat.prototype = {
             document.getElementById('nicknameInput').focus();
         });
         this.socket.on('nickExisted', function () {
-            document.getElementById('info').textContent = '!nickname is taken, choose another pls';
+            document.getElementById('info').textContent = '名字重复啦，换一个吧';
         });
         this.socket.on('loginSuccess', function () {
             document.title = 'hichat | ' + document.getElementById('nicknameInput').value;
@@ -49,7 +49,7 @@ HiChat.prototype = {
             for (let i = 0; i < reverseArr.length; i++) {
                 that._displayNewMsg(reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color);
             }
-          
+
         });
         this.socket.on('newImg', function (user, img, color) {
             that._displayImage(user, img, color);
@@ -88,8 +88,8 @@ HiChat.prototype = {
         }, false);
         //获取历史记录
         document.getElementById('getHistoryMsg').addEventListener('click', function () {
-                that.socket.emit('gitHistoryMsg');
-                return;
+            that.socket.emit('gitHistoryMsg');
+            return;
         }, false);
         document.getElementById('messageInput').addEventListener('keyup', function (e) {
             var messageInput = document.getElementById('messageInput'),
@@ -104,20 +104,41 @@ HiChat.prototype = {
         // document.getElementById('clearBtn').addEventListener('click', function() {
         //     document.getElementById('historyMsg').innerHTML = '';
         // }, false);
-        document.getElementById('sendImage').addEventListener('change', function() {
+        document.getElementById('sendImage').addEventListener('change', function () {
             if (this.files.length != 0) {
                 var file = this.files[0],
                     reader = new FileReader(),
                     color = document.getElementById('colorStyle').value;
+                console.log(file.size / 1024);
                 if (!reader) {
-                    that._displayNewMsg('system', '!your browser doesn\'t support fileReader', 'red');
+                    that._displayNewMsg('system', '您的游览器不支持', 'red');
                     this.value = '';
                     return;
                 };
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     this.value = '';
-                    that.socket.emit('img', e.target.result, color);
-                    that._displayImage('me', e.target.result, color);
+                    // console.log(this.result);
+                    var img = new Image();
+                    img.src = this.result;
+                    if (file.size / 1024 > 200) {
+                        // 图片加载完毕之后进行压缩，然后上传
+                        if (img.complete) {
+                            callback();
+                        } else {
+                            img.onload = callback;
+                        }
+                    }else{
+                        that.socket.emit('img', this.result, color);
+                        that._displayImage('me', this.result, color);
+                    }
+
+                    function callback() {
+                        var data = that._compress(img);
+                        img = null;
+                        that.socket.emit('img', data, color);
+                        that._displayImage('me', data, color);
+                    }
+               
                 };
                 reader.readAsDataURL(file);
             };
@@ -176,7 +197,10 @@ HiChat.prototype = {
         msgToDisplay.style.color = color || '#000';
         msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
         container.appendChild(msgToDisplay);
-        container.scrollTop = container.scrollHeight;
+        setTimeout(() => {
+            container.scrollTop = container.scrollHeight;
+        }, 0);
+
     },
     _showEmoji: function (msg) {
         var match, result = msg,
@@ -188,9 +212,74 @@ HiChat.prototype = {
             if (emojiIndex > totalEmojiNum) {
                 result = result.replace(match[0], '[X]');
             } else {
-                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />');//todo:fix this in chrome it will cause a new request for the image
+                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />'); //todo:fix this in chrome it will cause a new request for the image
             };
         };
         return result;
+    },
+    //图片压缩
+    _compress: function (img) {
+        //    用于压缩图片的canvas
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext('2d');
+        //    瓦片canvas
+        var tCanvas = document.createElement("canvas");
+        var tctx = tCanvas.getContext("2d");
+        var maxsize = 100 * 1024;
+
+        var initSize = img.src.length;
+        var width = img.width;
+        var height = img.height;
+
+        //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+        var ratio;
+        if ((ratio = width * height / 4000000) > 1) {
+            ratio = Math.sqrt(ratio);
+            width /= ratio;
+            height /= ratio;
+        } else {
+            ratio = 1;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        //        铺底色
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        //如果图片像素大于100万则使用瓦片绘制
+        var count;
+        if ((count = width * height / 1000000) > 1) {
+            count = ~~(Math.sqrt(count) + 1); //计算要分成多少块瓦片
+
+            //            计算每块瓦片的宽和高
+            var nw = ~~(width / count);
+            var nh = ~~(height / count);
+
+            tCanvas.width = nw;
+            tCanvas.height = nh;
+
+            for (var i = 0; i < count; i++) {
+                for (var j = 0; j < count; j++) {
+                    tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+
+                    ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+                }
+            }
+        } else {
+            ctx.drawImage(img, 0, 0, width, height);
+        }
+
+        //进行最小压缩
+        var ndata = canvas.toDataURL("image/jpeg", 0.1);
+
+        console.log("压缩前：" + initSize);
+        console.log("压缩后：" + ndata.length);
+        console.log("压缩率：" + ~~(100 * (initSize - ndata.length) / initSize) + "%");
+
+        tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
+
+        return ndata;
     }
 };

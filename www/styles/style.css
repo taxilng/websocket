@@ -499,8 +499,8 @@
 
     #emojiWrapper {
         display: none;
-        width: 500px;
-        bottom: 177px;
+        width: 100%;
+        bottom: 144px;
         position: absolute;
         background-color: #aaa;
         box-shadow: 0 0 10px #555;

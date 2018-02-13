@@ -558,7 +558,10 @@
         overflow: auto;
         padding: 2px;
     }
-
+    /* 在线人数 */
+    .banner{
+        text-align: center;
+    }
     /* 聊天图片 */
 
     #historyMsg img {

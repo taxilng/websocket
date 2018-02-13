@@ -1,16 +1,10 @@
-/*
- *hichat v0.4.2
- *Wayou Mar 28,2014
- *MIT license
- *view on GitHub:https://github.com/wayou/HiChat
- *see it in action:http://hichat.herokuapp.com/
- */
+
 window.onload = function () {
     var hichat = new HiChat();
     hichat.init();
 };
 var HiChat = function () {
-    this.socket = null;
+    // this.socket = null;
 };
 HiChat.prototype = {
     init: function () {
@@ -25,7 +19,7 @@ HiChat.prototype = {
             document.getElementById('info').textContent = '名字重复啦，换一个吧';
         });
         this.socket.on('loginSuccess', function () {
-            document.title = 'hichat | ' + document.getElementById('nicknameInput').value;
+            document.title = 'WeChat | ' + document.getElementById('nicknameInput').value;
             document.getElementById('loginWrapper').style.display = 'none';
             document.getElementById('messageInput').focus();
         });
@@ -39,7 +33,7 @@ HiChat.prototype = {
         this.socket.on('system', function (nickName, userCount, type) {
             var msg = nickName + (type == 'login' ? ' joined' : ' left');
             that._displayNewMsg('system ', msg, 'red');
-            document.getElementById('status').textContent = userCount + (userCount > 1 ? ' users' : ' user') + ' online';
+            document.getElementById('status').textContent ='共 ' + userCount + ' 位在线';
         });
         this.socket.on('newMsg', function (user, msg, color) {
             that._displayNewMsg(user, msg, color);
@@ -54,6 +48,9 @@ HiChat.prototype = {
         this.socket.on('newImg', function (user, img, color) {
             that._displayImage(user, img, color);
         });
+        var nickname =  function(){
+            return document.getElementById('nicknameInput').value;
+        }
         //改变字体颜色
         document.querySelector('#changeColor').addEventListener('click', () => {
             document.querySelector('#colorStyle').click()
@@ -82,7 +79,7 @@ HiChat.prototype = {
             messageInput.focus();
             if (msg.trim().length != 0) {
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('me', msg, color);
+                that._displayNewMsg(nickname(), msg, color);
                 return;
             };
         }, false);
@@ -98,7 +95,7 @@ HiChat.prototype = {
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('me', msg, color);
+                that._displayNewMsg(nickname(), msg, color);
             };
         }, false);
         // document.getElementById('clearBtn').addEventListener('click', function() {
@@ -129,14 +126,14 @@ HiChat.prototype = {
                         }
                     }else{
                         that.socket.emit('img', this.result, color);
-                        that._displayImage('me', this.result, color);
+                        that._displayImage(nickname(), this.result, color);
                     }
 
                     function callback() {
                         var data = that._compress(img);
                         img = null;
                         that.socket.emit('img', data, color);
-                        that._displayImage('me', data, color);
+                        that._displayImage(nickname(), data, color);
                     }
                
                 };

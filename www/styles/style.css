@@ -455,7 +455,7 @@
     }
 
     .qq-chat-text textarea {
-        width: 420px;
+        width: 95%;
         height: 69px;
         max-width: 420px;
         max-height: 69px;
@@ -566,4 +566,28 @@
 
     #historyMsg img {
         max-width: 50%;
+    }
+    #historyMsg > div{
+        clear: both;
+
+    }
+    #historyMsg > div > .timespan{
+        text-align: center;
+        color: #555555;
+    }
+    #historyMsg > div > .userName{
+       padding: 0 5px;
+    }
+    #historyMsg > div.me > .userName{
+        float: right;
+        position: relative;
+    }
+    #historyMsg > div.me > .userName::before{
+        content: ':'
+    }
+    #historyMsg > div.other > .userName::after{
+        content: ':'
+    }
+    #historyMsg > div.me > .msg{
+        float: right
     }

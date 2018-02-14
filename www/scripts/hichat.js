@@ -25,9 +25,9 @@ HiChat.prototype = {
         });
         this.socket.on('error', function (err) {
             if (document.getElementById('loginWrapper').style.display == 'none') {
-                document.getElementById('status').textContent = '!fail to connect :(';
+                document.getElementById('status').textContent = '无法连接 :(';
             } else {
-                document.getElementById('info').textContent = '!fail to connect :(';
+                document.getElementById('info').textContent = '无法连接 :(';
             }
         });
         this.socket.on('system', function (nickName, userCount, type) {
@@ -184,9 +184,11 @@ HiChat.prototype = {
             msg = this._showEmoji(msg);
         msgToDisplay.style.color = color || '#000';
         if(who === 'me'){
-            msgToDisplay.style.textAlign = 'right';
+            msgToDisplay.className = 'me clearfix';
+        }else{
+            msgToDisplay.className = 'other clearfix';
         }
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span><br>&nbsp;&nbsp;&nbsp;&nbsp;' + msg;
+        msgToDisplay.innerHTML = '<div class="timespan">' + date + '</div><span class="userName">'+ user +'</span><span class= "msg">' + msg;
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
     },

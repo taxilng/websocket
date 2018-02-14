@@ -15,14 +15,14 @@ module.exports = {
                 recall(data.toString())
             }
         })
-        console.log('异步方法执行完毕');
+        // console.log('异步方法执行完毕');
     },
     writeFile: (path, data)=>{
         fs.writeFile(path,data, (err)=>{
             if(err){
                 throw err;
             }
-            console.log('异步文件被保存');
+            // console.log('异步文件被保存');
         })
     },
     writeFileSync: (path, data)=>{

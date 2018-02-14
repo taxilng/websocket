@@ -7,6 +7,7 @@ var HiChat = function () {
     // this.socket = null;
 };
 HiChat.prototype = {
+    lastTime: '',
     init: function () {
         var that = this;
         this.socket = io.connect();
@@ -33,7 +34,7 @@ HiChat.prototype = {
         this.socket.on('system', function (nickName, userCount, type) {
             var msg = nickName + (type == 'login' ? ' 加入聊天室' : ' 离开聊天室');
             that._displayNewMsg('other', '系统消息', msg, 'red');
-            document.getElementById('status').textContent ='共 ' + userCount + ' 位在线';
+            document.getElementById('status').textContent = '共 ' + userCount + ' 位在线';
         });
         this.socket.on('newMsg', function (user, msg, color, time) {
             that._displayNewMsg('other', user, msg, color, time);
@@ -48,7 +49,7 @@ HiChat.prototype = {
         this.socket.on('newImg', function (user, img, color) {
             that._displayImage(user, img, color);
         });
-        var nickname =  function(){
+        var nickname = function () {
             return document.getElementById('nicknameInput').value;
         }
         //改变字体颜色
@@ -124,7 +125,7 @@ HiChat.prototype = {
                         } else {
                             img.onload = callback;
                         }
-                    }else{
+                    } else {
                         that.socket.emit('img', this.result, color);
                         that._displayImage(nickname(), this.result, color);
                     }
@@ -135,7 +136,7 @@ HiChat.prototype = {
                         that.socket.emit('img', data, color);
                         that._displayImage(nickname(), data, color);
                     }
-               
+
                 };
                 reader.readAsDataURL(file);
             };
@@ -180,17 +181,23 @@ HiChat.prototype = {
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('div'),
             date = time || new Date().toTimeString().substr(0, 8),
-            //determine whether the msg contains emoji
             msg = this._showEmoji(msg);
+        date = this._formatTime(time)
+        
         msgToDisplay.style.color = color || '#000';
-        if(who === 'me'){
+        if (who === 'me') {
             msgToDisplay.className = 'me clearfix';
-        }else{
+        } else {
             msgToDisplay.className = 'other clearfix';
         }
-        msgToDisplay.innerHTML = '<div class="timespan">' + date + '</div><span class="userName">'+ user +'</span><span class= "msg">' + msg;
+        if(date.substr(0, 5) === this.lastTime.substr(0,5)){
+            msgToDisplay.innerHTML = '<span class="userName">' + user + '</span><span class= "msg">' + msg;
+        }else{
+            msgToDisplay.innerHTML = '<div class="timespan">' + date + '</div><span class="userName">' + user + '</span><span class= "msg">' + msg;
+        }
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
+        this.lastTime = date
     },
     _displayImage: function (user, imgData, color) {
         var container = document.getElementById('historyMsg'),
@@ -283,5 +290,16 @@ HiChat.prototype = {
         tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
 
         return ndata;
+    },
+    // 时间展示年月日还是时分秒
+    _formatTime: function (time) {
+        if (time && new Date().getFullYear() == time.substring(0, 4) && new Date().getMonth() + 1 == time.substring(5, 7) && new Date().getDate() == time.substring(8, 10)) {
+            return time.slice(-8)
+        } else if (time) {
+            return time
+        } else {
+            return new Date().toTimeString().substr(0, 8)
+        }
     }
+
 };

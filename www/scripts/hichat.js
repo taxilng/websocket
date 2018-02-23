@@ -41,7 +41,7 @@ HiChat.prototype = {
         });
         this.socket.on('historyMsg', function (dataArr) {
             var reverseArr = dataArr.reverse();
-            for (let i = 0; i < reverseArr.length; i++) {
+            for (var i = 0; i < reverseArr.length; i++) {
                 that._displayNewMsg('other', reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color, reverseArr[i].time);
             }
 
@@ -53,7 +53,7 @@ HiChat.prototype = {
             return document.getElementById('nicknameInput').value;
         }
         //改变字体颜色
-        document.querySelector('#changeColor').addEventListener('click', () => {
+        document.querySelector('#changeColor').addEventListener('click', function(){
             document.querySelector('#colorStyle').click()
         }, false)
         document.getElementById('loginBtn').addEventListener('click', function () {
@@ -206,7 +206,7 @@ HiChat.prototype = {
         msgToDisplay.style.color = color || '#000';
         msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
         container.appendChild(msgToDisplay);
-        setTimeout(() => {
+        setTimeout(function(){
             container.scrollTop = container.scrollHeight;
         }, 0);
 

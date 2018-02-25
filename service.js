@@ -2,7 +2,7 @@ const express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    optfile = require('./service/optfile'),
+    // optfile = require('./service/optfile'),
     mysql = require('./service/mysql'),
     users = [];
 
@@ -38,14 +38,15 @@ io.sockets.on('connection', (socket) => {
             color: color,
             time: getTimeNow()
         }
-        optfile.readFile('./views/one.txt', recall)
+        //存储在本地txt，过时
+        // optfile.readFile('./views/one.txt', recall)
 
-        function recall(data) {
-            let dataArr = JSON.parse(data || "[]")
-            dataArr.unshift(getMsg)
-            let dataArrJSON = JSON.stringify(dataArr)
-            optfile.writeFile('./views/one.txt', dataArrJSON)
-        }
+        // function recall(data) {
+        //     let dataArr = JSON.parse(data || "[]")
+        //     dataArr.unshift(getMsg)
+        //     let dataArrJSON = JSON.stringify(dataArr)
+        //     optfile.writeFile('./views/one.txt', dataArrJSON)
+        // }
 
         //存储数据到数据库
         mysql.record(getMsg)

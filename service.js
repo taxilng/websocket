@@ -2,8 +2,9 @@ const express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    optfile = require('./service/optfile')
-users = [];
+    optfile = require('./service/optfile'),
+    mysql = require('./service/mysql'),
+    users = [];
 
 app.use('/', express.static(__dirname + '/www'))
 server.listen(process.env.PORT || 3010, () => console.log('listen to me'))
@@ -38,12 +39,16 @@ io.sockets.on('connection', (socket) => {
             time: getTimeNow()
         }
         optfile.readFile('./views/one.txt', recall)
+
         function recall(data) {
             let dataArr = JSON.parse(data || "[]")
             dataArr.unshift(getMsg)
             let dataArrJSON = JSON.stringify(dataArr)
             optfile.writeFile('./views/one.txt', dataArrJSON)
         }
+
+        //存储数据到数据库
+        mysql.record(getMsg)
 
     })
     //历史数据
@@ -54,16 +59,18 @@ io.sockets.on('connection', (socket) => {
     socket.on('img', (imgData, color) => {
         socket.broadcast.emit('newImg', socket.nickname, imgData, color)
     })
-    function loadHistoryMsg(){
+
+    function loadHistoryMsg() {
         optfile.readFile('./views/one.txt', recall)
+
         function recall(data) {
             let dataArr = JSON.parse(data || "[]")
-            dataArr = dataArr.slice(0,10)
+            dataArr = dataArr.slice(0, 10)
             socket.emit('historyMsg', dataArr)
         }
     }
     // 获取当前时间
-    function getTimeNow(){
+    function getTimeNow() {
         return new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
     }
     loadHistoryMsg();

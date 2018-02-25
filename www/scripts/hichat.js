@@ -33,7 +33,7 @@ HiChat.prototype = {
         });
         this.socket.on('system', function (nickName, userCount, type) {
             var msg = nickName + (type == 'login' ? ' 加入聊天室' : ' 离开聊天室');
-            that._displayNewMsg('other', '系统消息', msg, 'red');
+            that._displayNewMsg('system', '系统消息', msg, 'red');
             document.getElementById('status').textContent = '共 ' + userCount + ' 位在线';
         });
         this.socket.on('newMsg', function (user, msg, color, time) {
@@ -42,7 +42,7 @@ HiChat.prototype = {
         this.socket.on('historyMsg', function (dataArr) {
             var reverseArr = dataArr.reverse();
             for (var i = 0; i < reverseArr.length; i++) {
-                that._displayNewMsg('other', reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color, reverseArr[i].time);
+                that._displayNewMsg('history', reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color, reverseArr[i].time);
             }
 
         });
@@ -86,7 +86,9 @@ HiChat.prototype = {
         }, false);
         //获取历史记录
         document.getElementById('getHistoryMsg').addEventListener('click', function () {
-            that.socket.emit('gitHistoryMsg');
+            var length = document.querySelectorAll('#historyMsg .chat').length
+            console.log(length);
+            that.socket.emit('gitHistoryMsg', length);
             return;
         }, false);
         document.getElementById('messageInput').addEventListener('keyup', function (e) {
@@ -186,16 +188,22 @@ HiChat.prototype = {
         
         msgToDisplay.style.color = color || '#000';
         if (who === 'me') {
-            msgToDisplay.className = 'me clearfix';
-        } else {
+            msgToDisplay.className = 'chat me clearfix';
+        } else if(who === 'system') {
             msgToDisplay.className = 'other clearfix';
+        } else{
+            msgToDisplay.className = 'chat other clearfix';
         }
         if(date.substr(0, 5) === this.lastTime.substr(0,5)){
             msgToDisplay.innerHTML = '<span class="userName">' + user + '</span><span class= "msg">' + msg;
         }else{
             msgToDisplay.innerHTML = '<div class="timespan">' + date + '</div><span class="userName">' + user + '</span><span class= "msg">' + msg;
         }
-        container.appendChild(msgToDisplay);
+        if(who === 'history'){
+            container.insertAdjacentElement('afterbegin',msgToDisplay)
+        }else{
+            container.appendChild(msgToDisplay);
+        }
         container.scrollTop = container.scrollHeight;
         this.lastTime = date
     },

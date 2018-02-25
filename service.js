@@ -52,22 +52,28 @@ io.sockets.on('connection', (socket) => {
 
     })
     //历史数据
-    socket.on('gitHistoryMsg', () => {
-        loadHistoryMsg();
+    socket.on('gitHistoryMsg', (length) => {
+        loadHistoryMsg(length);
     })
     //获取图片
     socket.on('img', (imgData, color) => {
         socket.broadcast.emit('newImg', socket.nickname, imgData, color)
     })
 
-    function loadHistoryMsg() {
-        optfile.readFile('./views/one.txt', recall)
+    function loadHistoryMsg(length) {
+        // optfile.readFile('./views/one.txt', recall)
+
+        // function recall(data) {
+        //     let dataArr = JSON.parse(data || "[]")
+        //     dataArr = dataArr.slice(0, 10)
+        //     socket.emit('historyMsg', dataArr)
+        // }
+        mysql.query(length, 2, recall);
 
         function recall(data) {
-            let dataArr = JSON.parse(data || "[]")
-            dataArr = dataArr.slice(0, 10)
-            socket.emit('historyMsg', dataArr)
+            socket.emit('historyMsg', data)
         }
+
     }
     // 获取当前时间
     function getTimeNow() {

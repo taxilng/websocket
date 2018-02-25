@@ -59,5 +59,15 @@ module.exports = {
         pool.query('INSERT INTO chatRecord SET ?', post, function (error, results, fields) {
             if (error) throw error;
         });
+    },
+    query: (index, size, recall) => {
+        // select * from msg order by id desc limit n ; 
+        var index = index || 0;
+        var size = size || 1;
+        pool.query('SELECT * from chatRecord order by id desc limit '+ index + ","+ size, function (error, results, fields) {
+            if (error) throw error;
+            console.log(results);
+            recall(results)
+        });
     }
 }

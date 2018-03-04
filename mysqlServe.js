@@ -2,8 +2,8 @@ const express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
+    mysql = require('./service/mysql'),
     copen = require('child_process'),
-    optfile = require('./service/optfile'),
     users = [];
 
 copen.exec('start http://localhost:3010');
@@ -39,16 +39,8 @@ io.sockets.on('connection', (socket) => {
             color: color,
             time: getTimeNow()
         }
-        //存储在本地txt
-        optfile.readFile('./views/one.txt', recall)
-
-        function recall(data) {
-            let dataArr = JSON.parse(data || "[]")
-            dataArr.unshift(getMsg)
-            let dataArrJSON = JSON.stringify(dataArr)
-            optfile.writeFile('./views/one.txt', dataArrJSON)
-        }
-
+        //存储数据到数据库
+        mysql.record(getMsg)
 
     })
     //历史数据
@@ -61,12 +53,10 @@ io.sockets.on('connection', (socket) => {
     })
 
     function loadHistoryMsg(length) {
-        optfile.readFile('./views/one.txt', recall)
+        mysql.query(length, 2, recall);
 
         function recall(data) {
-            let dataArr = JSON.parse(data || "[]")
-            dataArr = dataArr.slice(0, 10)
-            socket.emit('historyMsg', dataArr)
+            socket.emit('historyMsg', data)
         }
     }
     // 获取当前时间

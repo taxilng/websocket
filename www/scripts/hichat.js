@@ -40,7 +40,8 @@ HiChat.prototype = {
             that._displayNewMsg('other', user, msg, color, time);
         });
         this.socket.on('historyMsg', function (dataArr) {
-            var reverseArr = dataArr.reverse();
+            console.log(typeof dataArr);
+            var reverseArr =dataArr.reverse();
             for (var i = 0; i < reverseArr.length; i++) {
                 that._displayNewMsg('history', reverseArr[i].nickname, reverseArr[i].msg, reverseArr[i].color, reverseArr[i].time);
             }
